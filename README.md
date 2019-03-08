@@ -21,5 +21,5 @@ mysql:5.6.35
 有什么疑问欢迎在我博客留言：
 [鸟不拉屎](https://niaobulashi.com/)
 
-![留言位置](https://ws1.sinaimg.cn/large/a3d658abgy1g0ve4e86phj21hc0p2x6q.jpg)
+![留言位置](https://ws1.sinaimg.cn/large/a3d658abgy1g0vevkt2idj21hc0p2x6q.jpg)
 
