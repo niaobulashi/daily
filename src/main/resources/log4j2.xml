@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF" monitorInterval="1800">
+    <properties>
+        <!--本地环境-->
+        <property name="LOG_HOME">C:/temp</property>
+        <property name="FILE_NAME">daily</property>
+
+        <!--生产环境-->
+        <!--<property name="LOG_HOME">/home/hulang/logs</property>
+        <property name="FILE_NAME">daily</property>-->
+    </properties>
+
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+
+        <RollingFile name="running-log" fileName="${LOG_HOME}/${FILE_NAME}.log"
+                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz"
+                     immediateFlush="true">
+            <PatternLayout
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20" />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+
+        <Root level="info">
+            <!-- 这里是输入到文件，很重要-->
+            <!--<AppenderRef ref="running-log" />-->
+            <!-- 这里是输入到控制台-->
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+</Configuration>

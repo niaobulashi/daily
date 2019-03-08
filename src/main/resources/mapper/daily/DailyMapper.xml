@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.adtec.daily.dao.daily.DailyMapper">
+    <resultMap id="BaseResultMap" type="com.adtec.daily.bean.daily.Daily">
+        <id column="daily_id" property="dailyId" jdbcType="VARCHAR"/>
+        <result column="daily_date" property="dailyDate" jdbcType="DATE"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="project_id" property="projectId" jdbcType="INTEGER"/>
+        <result column="off_duty_time" property="offDutyTime" jdbcType="TIME" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user_id" property="createUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="remark1" property="remark1" jdbcType="VARCHAR"/>
+        <result column="remark2" property="remark2" jdbcType="VARCHAR"/>
+        <result column="remark3" property="remark3" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    daily_id, daily_date, user_id, user_name, project_id, off_duty_time, create_time, create_user_id,
+    update_time, update_user_id, remark1, remark2, remark3
+  </sql>
+    <sql id="WithDaily_Column_List">
+      t1.daily_id, t1.daily_date, t1.user_id, t1.user_name, t1.project_id, t1.off_duty_time, t2.project_name,
+            t1.create_time, t1.create_user_id, t1.update_time, t1.update_user_id
+    </sql>
+    <sql id="WithDailyDetail_Column_List">
+        t1.daily_date, t1.user_id, t1.user_name, t2.project_id, t1.off_duty_time, t4.project_code, t4.project_name,
+        t3.daily_no, t3.daily_content, t3.daily_percent, t3.done_date, t3.problem,
+        t3.next_work_plan, t3.work_type, t3.execution
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.adtec.daily.bean.daily.DailyExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from t_daily
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_daily
+        where daily_id = #{dailyId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_daily
+    where daily_id = #{dailyId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.adtec.daily.bean.daily.DailyExample">
+        delete from t_daily
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.adtec.daily.bean.daily.Daily">
+    insert into t_daily (daily_id, daily_date, user_id,
+      user_name, project_id, off_duty_time, create_time,
+      create_user_id, update_time, update_user_id, 
+      remark1, remark2, remark3
+      )
+    values (#{dailyId,jdbcType=VARCHAR}, #{dailyDate,jdbcType=DATE}, #{userId,jdbcType=VARCHAR},
+      #{userName,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, #{offDutyTime,jdbcType=TIME}, #{createTime,jdbcType=TIMESTAMP},
+      #{createUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.adtec.daily.bean.daily.Daily">
+        insert into t_daily
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dailyId != null">
+                daily_id,
+            </if>
+            <if test="dailyDate != null">
+                daily_date,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="offDutyTime != null">
+                off_duty_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="remark1 != null">
+                remark1,
+            </if>
+            <if test="remark2 != null">
+                remark2,
+            </if>
+            <if test="remark3 != null">
+                remark3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dailyId != null">
+                #{dailyId,jdbcType=VARCHAR},
+            </if>
+            <if test="dailyDate != null">
+                #{dailyDate,jdbcType=DATE},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=INTEGER},
+            </if>
+            <if test="offDutyTime != null">
+                #{offDutyTime,jdbcType=TIME},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                #{remark3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.adtec.daily.bean.daily.DailyExample" resultType="java.lang.Integer">
+        select count(*) from t_daily
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_daily
+        <set>
+            <if test="record.dailyId != null">
+                daily_id = #{record.dailyId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dailyDate != null">
+                daily_date = #{record.dailyDate,jdbcType=DATE},
+            </if>
+            <if test="record.userId != null">
+                user_id = #{record.userId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.userName != null">
+                user_name = #{record.userName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.projectId != null">
+                project_id = #{record.projectId,jdbcType=INTEGER},
+            </if>
+            <if test="record.offDutyTime != null">
+                off_duty_time = #{record.offDutyTime,jdbcType=TIME},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.createUserId != null">
+                create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateUserId != null">
+                update_user_id = #{record.updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark1 != null">
+                remark1 = #{record.remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark2 != null">
+                remark2 = #{record.remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark3 != null">
+                remark3 = #{record.remark3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_daily
+        set daily_id = #{record.dailyId,jdbcType=VARCHAR},
+        daily_date = #{record.dailyDate,jdbcType=DATE},
+        user_id = #{record.userId,jdbcType=VARCHAR},
+        user_name = #{record.userName,jdbcType=VARCHAR},
+        project_id = #{record.projectId,jdbcType=INTEGER},
+        off_duty_time = #{record.offDutyTime,jdbcType=TIME},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        update_user_id = #{record.updateUserId,jdbcType=VARCHAR},
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+        remark3 = #{record.remark3,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.adtec.daily.bean.daily.Daily">
+        update t_daily
+        <set>
+            <if test="dailyDate != null">
+                daily_date = #{dailyDate,jdbcType=DATE},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=INTEGER},
+            </if>
+            <if test="offDutyTime != null">
+                off_duty_time = #{offDutyTime,jdbcType=TIME},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                remark1 = #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                remark2 = #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                remark3 = #{remark3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where daily_id = #{dailyId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.adtec.daily.bean.daily.Daily">
+    update t_daily
+    set daily_date = #{dailyDate,jdbcType=DATE},
+      user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=INTEGER},
+      off_duty_time = #{offDutyTime,jdbcType=TIME},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR}
+    where daily_id = #{dailyId,jdbcType=VARCHAR}
+  </update>
+
+    <!--日报列表查询-->
+    <select id="selectDailyListByUserId" parameterType="com.adtec.daily.bean.daily.Daily" resultMap="BaseResultMap">
+        SELECT
+        <include refid="WithDaily_Column_List"/>
+        FROM t_daily t1
+        LEFT JOIN t_project t2 on t2.id = t1.project_id
+        WHERE
+        <![CDATA[
+          t1.user_id = #{userId,jdbcType=VARCHAR}
+          ORDER BY t1.daily_date DESC
+        ]]>
+    </select>
+
+    <!--根据日期及用户id查询日报明细列表-->
+    <select id="selectDailyListByUserIdAndDailyDate" parameterType="map" resultMap="BaseResultMap">
+        SELECT t.* 	FROM
+        (
+            SELECT
+            <include refid="WithDailyDetail_Column_List"/>
+            FROM t_daily t1
+            LEFT JOIN t_user_project t2 on t2.user_id = t1.user_id
+            LEFT JOIN t_project t4 on t4.id = t2.project_id
+            LEFT JOIN t_daily_detail t3 on t3.daily_id = t1.daily_id
+            WHERE
+            t1.user_id = #{userId,jdbcType=VARCHAR}
+            <if test="startDate != '' and startDate != null">
+              AND t1.daily_date>=#{startDate,jdbcType=VARCHAR}
+            </if>
+            <if test="endDate != '' and endDate != null">
+              AND t1.daily_date&lt;=#{endDate,jdbcType=VARCHAR}
+            </if>
+            ORDER BY t1.daily_date DESC
+        ) t
+        GROUP BY t.daily_content ORDER BY t.daily_date ASC
+    </select>
+
+    <!--首页查询员工的当月上班时长情况-->
+<!--
+    <select id="selectWorkTimeAtMonth" parameterType="com.adtec.daily.bean.daily.Daily" resultMap="BaseResultMap">
+        SELECT
+          DATE_FORMAT(td.daily_date, '%e') dailyDateDay,
+          DATE_FORMAT(timediff(td.off_duty_time, tp.work_start_time), '%k') workHour,
+          ifnull(tow.over_work, 0) overWork
+        FROM t_daily td
+        LEFT JOIN t_project tp on tp.id = td.project_id
+        LEFT JOIN t_over_work tow on tow.remark1 = td.daily_id
+        WHERE 1 = 1
+        <![CDATA[
+          AND td.user_id = #{userId,jdbcType=VARCHAR}
+          AND DATE_FORMAT( td.daily_date, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+          ORDER BY td.daily_date
+        ]]>
+    </select>
+-->
+    <!--首页：按月统计用户的上班时长、加班时长-->
+    <select id="selectWorkTimeAtYear" parameterType="com.adtec.daily.bean.daily.Daily" resultMap="BaseResultMap">
+        SELECT
+		 lefttable.month AS monthNo,
+		 IFNULL(righttable.workTimeSum,0) AS workTimeSum,
+         IFNULL(righttable.overWorkSum,0) AS overWorkSum
+        FROM (SELECT DATE_FORMAT(CURDATE(), '%c'),x.d AS month
+            FROM
+                (SELECT 1 AS d UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL
+                SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12) x) AS lefttable
+        LEFT JOIN (
+                SELECT DATE_FORMAT(td.daily_date, '%c') AS monthNum,
+                             SUM(DATE_FORMAT(timediff(td.off_duty_time, tp.work_start_time), '%k')) workTimeSum,
+                             SUM(ifnull(tow.over_work, 0)) overWorkSum
+                    FROM t_daily td
+                    LEFT JOIN t_project tp on tp.id = td.project_id
+                    LEFT JOIN t_over_work tow on tow.remark1 = td.daily_id and tow.approval_status = '1'
+                WHERE td.user_id = #{userId,jdbcType=VARCHAR}
+              AND DATE_FORMAT(td.daily_date, '%Y') = DATE_FORMAT(CURDATE(), '%Y')
+              GROUP BY date_format(td.daily_date, '%Y-%m')) AS righttable
+        ON
+        lefttable.month = righttable.monthNum
+        ORDER BY lefttable.month
+    </select>
+
+    <!--首页：按天统计用户的上班时长、加班时长-->
+    <select id="selectWorkTimeAtMonth" parameterType="com.adtec.daily.bean.daily.Daily" resultMap="BaseResultMap">
+        SELECT
+            DATE_FORMAT(lefttable.date, '%e') monthDate,
+            IFNULL(righttable.dailyDate, '0') dailyDate,
+            IFNULL(righttable.workTime, '0') workHour,
+            IFNULL(righttable.overWork, '0') overWork
+        <![CDATA[
+        FROM (SELECT ADDDATE(y.first, x.d - 1) AS date
+        FROM (
+            SELECT 1 AS d UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL
+            SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12 UNION ALL SELECT 13 UNION ALL SELECT 14 UNION ALL
+            SELECT 15 UNION ALL SELECT 16 UNION ALL SELECT 17 UNION ALL SELECT 18 UNION ALL SELECT 19 UNION ALL SELECT 20 UNION ALL SELECT 21 UNION ALL
+            SELECT 22 UNION ALL SELECT 23 UNION ALL SELECT 24 UNION ALL SELECT 25 UNION ALL SELECT 26 UNION ALL SELECT 27 UNION ALL SELECT 28 UNION ALL
+            SELECT 29 UNION ALL SELECT 30 UNION ALL SELECT 31
+            ) x,
+            (SELECT CONCAT(#{yearMonth,jdbcType=VARCHAR}, '-01') as FIRST, DAY(LAST_DAY(str_to_date(#{yearMonth,jdbcType=VARCHAR}, '%Y-%c'))) AS last) y
+        WHERE x.d <= y.last and ADDDATE(y.first, x.d - 1) <= CURDATE()) AS lefttable
+        LEFT JOIN (
+            SELECT td.daily_date AS dailyDate,
+            DATE_FORMAT(timediff(td.off_duty_time, tp.work_start_time), '%k') AS workTime,
+            IFNULL(tow.over_work, 0) AS overWork
+            FROM t_daily td
+            LEFT JOIN t_project tp ON tp.id = td.project_id
+            LEFT JOIN t_over_work tow ON tow.remark1 = td.daily_id and tow.approval_status = '1'
+            WHERE td.user_id = #{userId,jdbcType=VARCHAR}
+            AND DATE_FORMAT(td.daily_date, '%Y%m') = DATE_FORMAT(CONCAT(#{yearMonth,jdbcType=VARCHAR}, '-01') , '%Y%m')
+            ) AS righttable
+        ON
+        DATE_FORMAT(lefttable.date, '%Y-%m-%d') = righttable.dailyDate
+        ]]>
+    </select>
+</mapper>

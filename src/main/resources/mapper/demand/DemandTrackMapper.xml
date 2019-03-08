@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adtec.daily.dao.demand.DemandTrackMapper">
+    <resultMap id="BaseResultMap" type="com.adtec.daily.vo.DemandTrackVo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="project_id" jdbcType="VARCHAR" property="projectId"/>
+        <result column="demand_id" jdbcType="VARCHAR" property="demandId"/>
+        <result column="demand_departmant" jdbcType="VARCHAR" property="demandDepartmant"/>
+        <result column="demand_maker" jdbcType="VARCHAR" property="demandMaker"/>
+        <result column="demand_date" jdbcType="DATE" property="demandDate"/>
+        <result column="demand_auditor" jdbcType="VARCHAR" property="demandAuditor"/>
+        <result column="demand_system" jdbcType="VARCHAR" property="demandSystem"/>
+        <result column="demand_module" jdbcType="VARCHAR" property="demandModule"/>
+        <result column="demand_progress" jdbcType="VARCHAR" property="demandProgress"/>
+        <result column="version_num" jdbcType="VARCHAR" property="versionNum"/>
+        <result column="demand_respo_id" jdbcType="VARCHAR" property="demandRespoId"/>
+        <result column="demand_name" jdbcType="VARCHAR" property="demandName"/>
+        <result column="demand_des" jdbcType="VARCHAR" property="demandDes"/>
+        <result column="demand_stat" jdbcType="VARCHAR" property="demandStat"/>
+        <result column="lead_date" jdbcType="DATE" property="leadDate"/>
+        <result column="planned_finish_date" jdbcType="DATE" property="plannedFinishDate"/>
+        <result column="actual_finish_date" jdbcType="DATE" property="actualFinishDate"/>
+        <result column="planned_online_date" jdbcType="DATE" property="plannedOnlineDate"/>
+        <result column="actual_online_date" jdbcType="DATE" property="actualOnlineDate"/>
+        <result column="priority" jdbcType="VARCHAR" property="priority"/>
+        <result column="workload" jdbcType="VARCHAR" property="workload"/>
+        <result column="workload_confirm" jdbcType="VARCHAR" property="workloadConfirm"/>
+        <result column="settlement_situation" jdbcType="VARCHAR" property="settlementSituation"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="VARCHAR" property="createUserId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId"/>
+        <result column="remark1" jdbcType="VARCHAR" property="remark1"/>
+        <result column="remark2" jdbcType="VARCHAR" property="remark2"/>
+        <result column="remark3" jdbcType="VARCHAR" property="remark3"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, project_id, demand_id, demand_departmant, demand_maker, demand_date, demand_auditor, 
+    demand_system, demand_module, demand_progress, version_num, demand_respo_id, demand_name, 
+    demand_des, demand_stat, lead_date, planned_finish_date, actual_finish_date, planned_online_date, 
+    actual_online_date, priority, workload, workload_confirm, settlement_situation, create_time, 
+    create_user_id, update_time, update_user_id, remark1, remark2, remark3
+  </sql>
+    <select id="selectByExample" parameterType="com.adtec.daily.bean.demand.DemandTrackExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from t_demand_track
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <delete id="deleteByExample" parameterType="com.adtec.daily.bean.demand.DemandTrackExample">
+        delete from t_demand_track
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insertSelective" parameterType="com.adtec.daily.vo.DemandTrackVo">
+        insert into t_demand_track
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="projectId != null">
+                project_id,
+            </if>
+            <if test="demandId != null">
+                demand_id,
+            </if>
+            <if test="demandDepartmant != null">
+                demand_departmant,
+            </if>
+            <if test="demandMaker != null">
+                demand_maker,
+            </if>
+            <if test="demandDate != null">
+                demand_date,
+            </if>
+            <if test="demandAuditor != null">
+                demand_auditor,
+            </if>
+            <if test="demandSystem != null">
+                demand_system,
+            </if>
+            <if test="demandModule != null">
+                demand_module,
+            </if>
+            <if test="demandProgress != null">
+                demand_progress,
+            </if>
+            <if test="versionNum != null">
+                version_num,
+            </if>
+            <if test="demandRespoId != null">
+                demand_respo_id,
+            </if>
+            <if test="demandName != null">
+                demand_name,
+            </if>
+            <if test="demandDes != null">
+                demand_des,
+            </if>
+            <if test="demandStat != null">
+                demand_stat,
+            </if>
+            <if test="leadDate != null">
+                lead_date,
+            </if>
+            <if test="plannedFinishDate != null">
+                planned_finish_date,
+            </if>
+            <if test="actualFinishDate != null">
+                actual_finish_date,
+            </if>
+            <if test="plannedOnlineDate != null">
+                planned_online_date,
+            </if>
+            <if test="actualOnlineDate != null">
+                actual_online_date,
+            </if>
+            <if test="priority != null">
+                priority,
+            </if>
+            <if test="workload != null">
+                workload,
+            </if>
+            <if test="workloadConfirm != null">
+                workload_confirm,
+            </if>
+            <if test="settlementSituation != null">
+                settlement_situation,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="remark1 != null">
+                remark1,
+            </if>
+            <if test="remark2 != null">
+                remark2,
+            </if>
+            <if test="remark3 != null">
+                remark3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=VARCHAR},
+            </if>
+            <if test="demandId != null">
+                #{demandId,jdbcType=VARCHAR},
+            </if>
+            <if test="demandDepartmant != null">
+                #{demandDepartmant,jdbcType=VARCHAR},
+            </if>
+            <if test="demandMaker != null">
+                #{demandMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="demandDate != null">
+                #{demandDate,jdbcType=DATE},
+            </if>
+            <if test="demandAuditor != null">
+                #{demandAuditor,jdbcType=VARCHAR},
+            </if>
+            <if test="demandSystem != null">
+                #{demandSystem,jdbcType=VARCHAR},
+            </if>
+            <if test="demandModule != null">
+                #{demandModule,jdbcType=VARCHAR},
+            </if>
+            <if test="demandProgress != null">
+                #{demandProgress,jdbcType=VARCHAR},
+            </if>
+            <if test="versionNum != null">
+                #{versionNum,jdbcType=VARCHAR},
+            </if>
+            <if test="demandRespoId != null">
+                #{demandRespoId,jdbcType=VARCHAR},
+            </if>
+            <if test="demandName != null">
+                #{demandName,jdbcType=VARCHAR},
+            </if>
+            <if test="demandDes != null">
+                #{demandDes,jdbcType=VARCHAR},
+            </if>
+            <if test="demandStat != null">
+                #{demandStat,jdbcType=VARCHAR},
+            </if>
+            <if test="leadDate != null">
+                #{leadDate,jdbcType=DATE},
+            </if>
+            <if test="plannedFinishDate != null">
+                #{plannedFinishDate,jdbcType=DATE},
+            </if>
+            <if test="actualFinishDate != null">
+                #{actualFinishDate,jdbcType=DATE},
+            </if>
+            <if test="plannedOnlineDate != null">
+                #{plannedOnlineDate,jdbcType=DATE},
+            </if>
+            <if test="actualOnlineDate != null">
+                #{actualOnlineDate,jdbcType=DATE},
+            </if>
+            <if test="priority != null">
+                #{priority,jdbcType=VARCHAR},
+            </if>
+            <if test="workload != null">
+                #{workload,jdbcType=VARCHAR},
+            </if>
+            <if test="workloadConfirm != null">
+                #{workloadConfirm,jdbcType=VARCHAR},
+            </if>
+            <if test="settlementSituation != null">
+                #{settlementSituation,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                #{remark3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.adtec.daily.bean.demand.DemandTrackExample"
+            resultType="java.lang.Long">
+        select count(*) from t_demand_track
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_demand_track
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.projectId != null">
+                project_id = #{record.projectId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.demandId != null">
+                demand_id = #{record.demandId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.demandDepartmant != null">
+                demand_departmant = #{record.demandDepartmant,jdbcType=VARCHAR},
+            </if>
+            <if test="record.demandMaker != null">
+                demand_maker = #{record.demandMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="record.demandDate != null">
+                demand_date = #{record.demandDate,jdbcType=DATE},
+            </if>
+            <if test="record.demandAuditor != null">
+                demand_auditor = #{record.demandAuditor,jdbcType=VARCHAR},
+            </if>
+            <if test="record.demandSystem != null">
+                demand_system = #{record.demandSystem,jdbcType=VARCHAR},
+            </if>
+            <if test="record.demandModule != null">
+                demand_module = #{record.demandModule,jdbcType=VARCHAR},
+            </if>
+            <if test="record.demandProgress != null">
+                demand_progress = #{record.demandProgress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.versionNum != null">
+                version_num = #{record.versionNum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.demandRespoId != null">
+                demand_respo_id = #{record.demandRespoId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.demandName != null">
+                demand_name = #{record.demandName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.demandDes != null">
+                demand_des = #{record.demandDes,jdbcType=VARCHAR},
+            </if>
+            <if test="record.demandStat != null">
+                demand_stat = #{record.demandStat,jdbcType=VARCHAR},
+            </if>
+            <if test="record.leadDate != null">
+                lead_date = #{record.leadDate,jdbcType=DATE},
+            </if>
+            <if test="record.plannedFinishDate != null">
+                planned_finish_date = #{record.plannedFinishDate,jdbcType=DATE},
+            </if>
+            <if test="record.actualFinishDate != null">
+                actual_finish_date = #{record.actualFinishDate,jdbcType=DATE},
+            </if>
+            <if test="record.plannedOnlineDate != null">
+                planned_online_date = #{record.plannedOnlineDate,jdbcType=DATE},
+            </if>
+            <if test="record.actualOnlineDate != null">
+                actual_online_date = #{record.actualOnlineDate,jdbcType=DATE},
+            </if>
+            <if test="record.priority != null">
+                priority = #{record.priority,jdbcType=VARCHAR},
+            </if>
+            <if test="record.workload != null">
+                workload = #{record.workload,jdbcType=VARCHAR},
+            </if>
+            <if test="record.workloadConfirm != null">
+                workload_confirm = #{record.workloadConfirm,jdbcType=VARCHAR},
+            </if>
+            <if test="record.settlementSituation != null">
+                settlement_situation = #{record.settlementSituation,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.createUserId != null">
+                create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateUserId != null">
+                update_user_id = #{record.updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark1 != null">
+                remark1 = #{record.remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark2 != null">
+                remark2 = #{record.remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark3 != null">
+                remark3 = #{record.remark3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_demand_track
+        set id = #{record.id,jdbcType=INTEGER},
+        demand_id = #{record.demandId,jdbcType=VARCHAR},
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+        demand_date = #{record.demandDate,jdbcType=DATE},
+        demand_maker = #{record.demandMaker,jdbcType=VARCHAR},
+        demand_auditor = #{record.demandAuditor,jdbcType=VARCHAR},
+        demand_module = #{record.demandModule,jdbcType=VARCHAR},
+        demand_progress = #{record.demandProgress,jdbcType=VARCHAR},
+        version_num = #{record.versionNum,jdbcType=VARCHAR},
+        demand_respo_id = #{record.demandRespoId,jdbcType=VARCHAR},
+        demand_name = #{record.demandName,jdbcType=VARCHAR},
+        demand_des = #{record.demandDes,jdbcType=VARCHAR},
+        demand_stat = #{record.demandStat,jdbcType=VARCHAR},
+        lead_date = #{record.leadDate,jdbcType=DATE},
+        workload = #{record.workload,jdbcType=VARCHAR},
+        workload_confirm = #{record.workloadConfirm,jdbcType=VARCHAR},
+        settlement_situation = #{record.settlementSituation,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        update_user_id = #{record.updateUserId,jdbcType=VARCHAR},
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+        remark3 = #{record.remark3,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.adtec.daily.vo.DemandTrackVo">
+        update t_demand_track
+        <set>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=VARCHAR},
+            </if>
+            <if test="demandId != null">
+                demand_id = #{demandId,jdbcType=VARCHAR},
+            </if>
+            <if test="demandDepartmant != null">
+                demand_departmant = #{demandDepartmant,jdbcType=VARCHAR},
+            </if>
+            <if test="demandMaker != null">
+                demand_maker = #{demandMaker,jdbcType=VARCHAR},
+            </if>
+            <if test="demandDate != null">
+                demand_date = #{demandDate,jdbcType=DATE},
+            </if>
+            <if test="demandAuditor != null">
+                demand_auditor = #{demandAuditor,jdbcType=VARCHAR},
+            </if>
+            <if test="demandSystem != null">
+                demand_system = #{demandSystem,jdbcType=VARCHAR},
+            </if>
+            <if test="demandModule != null">
+                demand_module = #{demandModule,jdbcType=VARCHAR},
+            </if>
+            <if test="demandProgress != null">
+                demand_progress = #{demandProgress,jdbcType=VARCHAR},
+            </if>
+            <if test="versionNum != null">
+                version_num = #{versionNum,jdbcType=VARCHAR},
+            </if>
+            <if test="demandRespoId != null">
+                demand_respo_id = #{demandRespoId,jdbcType=VARCHAR},
+            </if>
+            <if test="demandName != null">
+                demand_name = #{demandName,jdbcType=VARCHAR},
+            </if>
+            <if test="demandDes != null">
+                demand_des = #{demandDes,jdbcType=VARCHAR},
+            </if>
+            <if test="demandStat != null">
+                demand_stat = #{demandStat,jdbcType=VARCHAR},
+            </if>
+            <if test="leadDate != null">
+                lead_date = #{leadDate,jdbcType=DATE},
+            </if>
+            <if test="plannedFinishDate != null">
+                planned_finish_date = #{plannedFinishDate,jdbcType=DATE},
+            </if>
+            <if test="actualFinishDate != null">
+                actual_finish_date = #{actualFinishDate,jdbcType=DATE},
+            </if>
+            <if test="plannedOnlineDate != null">
+                planned_online_date = #{plannedOnlineDate,jdbcType=DATE},
+            </if>
+            <if test="actualOnlineDate != null">
+                actual_online_date = #{actualOnlineDate,jdbcType=DATE},
+            </if>
+            <if test="priority != null">
+                priority = #{priority,jdbcType=VARCHAR},
+            </if>
+            <if test="workload != null">
+                workload = #{workload,jdbcType=VARCHAR},
+            </if>
+            <if test="workloadConfirm != null">
+                workload_confirm = #{workloadConfirm,jdbcType=VARCHAR},
+            </if>
+            <if test="settlementSituation != null">
+                settlement_situation = #{settlementSituation,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                remark1 = #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                remark2 = #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                remark3 = #{remark3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="select" parameterType="com.adtec.daily.bean.demand.DemandTrackExample"
+            resultType="com.adtec.daily.vo.DemandTrackVo">
+        SELECT tdt.id,
+        tp.project_name as "projectName",
+        tdt.demand_id as "demandId",
+        tdt.demand_name as "demandName",
+        tdt.demand_departmant as "demandDepartmant",
+        tdt.version_num as "versionNum",
+        tdt.planned_finish_date as "plannedFinishDate",
+        tdt.actual_finish_date as "actualFinishDate",
+        tdt.planned_online_date as "plannedOnlineDate",
+        tdt.actual_online_date as "actualOnlineDate",
+        tdt.demand_progress as "demandProgress",
+        tdt.priority as "priority",
+        tdt.demand_maker as "demandMaker",
+        tdt.demand_auditor as "demandAuditor",
+        tdt.demand_module as "demandModule",
+        tu.user_name as "userName",
+        tdt.demand_stat as "demandStat"
+        from t_demand_track tdt
+        LEFT JOIN t_project tp ON tdt.project_id = tp.id
+        LEFT JOIN t_user tu ON tdt.demand_respo_id = tu.user_id
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        order by tdt.create_time desc
+    </select>
+
+</mapper>

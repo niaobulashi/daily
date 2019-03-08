@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adtec.daily.dao.system.CodeMapper">
+    <resultMap id="BaseResultMap" type="com.adtec.daily.bean.system.Code">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="kind_code" jdbcType="VARCHAR" property="kindCode" />
+        <result column="kind_name" jdbcType="VARCHAR" property="kindName" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="parent_code" jdbcType="VARCHAR" property="parentCode" />
+        <result column="delete_flag" jdbcType="VARCHAR" property="deleteFlag" />
+        <result column="display_sort" jdbcType="VARCHAR" property="displaySort" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="update_user_id" jdbcType="VARCHAR" property="updateUserId" />
+        <result column="remark1" jdbcType="VARCHAR" property="remark1" />
+        <result column="remark2" jdbcType="VARCHAR" property="remark2" />
+        <result column="remark3" jdbcType="VARCHAR" property="remark3" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, kind_code, kind_name, code, name, parent_code, delete_flag, display_sort, create_time,
+    create_user_id, update_time, update_user_id, remark1, remark2, remark3
+  </sql>
+    <select id="selectByExample" parameterType="com.adtec.daily.bean.system.CodeExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from t_code
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <delete id="deleteByExample" parameterType="com.adtec.daily.bean.system.CodeExample">
+        delete from t_code
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insertSelective" parameterType="com.adtec.daily.bean.system.Code">
+        insert into t_code
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="kindCode != null">
+                kind_code,
+            </if>
+            <if test="kindName != null">
+                kind_name,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="parentCode != null">
+                parent_code,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag,
+            </if>
+            <if test="displaySort != null">
+                display_sort,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="remark1 != null">
+                remark1,
+            </if>
+            <if test="remark2 != null">
+                remark2,
+            </if>
+            <if test="remark3 != null">
+                remark3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="kindCode != null">
+                #{kindCode,jdbcType=VARCHAR},
+            </if>
+            <if test="kindName != null">
+                #{kindName,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="parentCode != null">
+                #{parentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="displaySort != null">
+                #{displaySort,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                #{remark3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.adtec.daily.bean.system.CodeExample" resultType="java.lang.Long">
+        select count(*) from t_code
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_code
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.kindCode != null">
+                kind_code = #{record.kindCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.kindName != null">
+                kind_name = #{record.kindName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.code != null">
+                code = #{record.code,jdbcType=VARCHAR},
+            </if>
+            <if test="record.name != null">
+                name = #{record.name,jdbcType=VARCHAR},
+            </if>
+            <if test="record.parentCode != null">
+                parent_code = #{record.parentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.deleteFlag != null">
+                delete_flag = #{record.deleteFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="record.displaySort != null">
+                display_sort = #{record.displaySort,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.createUserId != null">
+                create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateUserId != null">
+                update_user_id = #{record.updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark1 != null">
+                remark1 = #{record.remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark2 != null">
+                remark2 = #{record.remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark3 != null">
+                remark3 = #{record.remark3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_code
+        set id = #{record.id,jdbcType=INTEGER},
+        kind_code = #{record.kindCode,jdbcType=VARCHAR},
+        kind_name = #{record.kindName,jdbcType=VARCHAR},
+        code = #{record.code,jdbcType=VARCHAR},
+        name = #{record.name,jdbcType=VARCHAR},
+        parent_code = #{record.parentCode,jdbcType=VARCHAR},
+        delete_flag = #{record.deleteFlag,jdbcType=VARCHAR},
+        display_sort = #{record.displaySort,jdbcType=VARCHAR},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        update_user_id = #{record.updateUserId,jdbcType=VARCHAR},
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+        remark3 = #{record.remark3,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.adtec.daily.bean.system.Code">
+        update t_code
+        <set>
+            <if test="kindCode != null">
+                kind_code = #{kindCode,jdbcType=VARCHAR},
+            </if>
+            <if test="kindName != null">
+                kind_name = #{kindName,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="parentCode != null">
+                parent_code = #{parentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="displaySort != null">
+                display_sort = #{displaySort,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                remark1 = #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                remark2 = #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                remark3 = #{remark3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adtec.daily.dao.system.TCalendarMapper">
+    <resultMap id="BaseResultMap" type="com.adtec.daily.bean.system.TCalendar">
+        <id column="d_date" jdbcType="VARCHAR" property="dDate" />
+        <result column="c_type" jdbcType="VARCHAR" property="cType" />
+        <result column="c_typename" jdbcType="VARCHAR" property="cTypename" />
+        <result column="c_yearname" jdbcType="VARCHAR" property="cYearname" />
+        <result column="c_nonglicn" jdbcType="VARCHAR" property="cNonglicn" />
+        <result column="c_nongli" jdbcType="VARCHAR" property="cNongli" />
+        <result column="c_animals_year" jdbcType="VARCHAR" property="cAnimalsYear" />
+        <result column="c_throttle" jdbcType="VARCHAR" property="cThrottle" />
+        <result column="c_weekcn" jdbcType="VARCHAR" property="cWeekcn" />
+        <result column="c_week1" jdbcType="VARCHAR" property="cWeek1" />
+        <result column="c_week2" jdbcType="VARCHAR" property="cWeek2" />
+        <result column="c_week3" jdbcType="VARCHAR" property="cWeek3" />
+        <result column="c_daynum" jdbcType="VARCHAR" property="cDaynum" />
+        <result column="c_weeknum" jdbcType="VARCHAR" property="cWeeknum" />
+        <result column="c_suit" jdbcType="VARCHAR" property="cSuit" />
+        <result column="c_avoid" jdbcType="VARCHAR" property="cAvoid" />
+        <result column="c_desc" jdbcType="VARCHAR" property="cDesc" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    d_date, c_type, c_typename, c_yearname, c_nonglicn, c_nongli, c_animals_year, c_throttle,
+    c_weekcn, c_week1, c_week2, c_week3, c_daynum, c_weeknum, c_suit, c_avoid, c_desc
+  </sql>
+    <select id="selectByExample" parameterType="com.adtec.daily.bean.system.TCalendarExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from t_calendar
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <delete id="deleteByExample" parameterType="com.adtec.daily.bean.system.TCalendarExample">
+        delete from t_calendar
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insertSelective" parameterType="com.adtec.daily.bean.system.TCalendar">
+        insert into t_calendar
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dDate != null">
+                d_date,
+            </if>
+            <if test="cType != null">
+                c_type,
+            </if>
+            <if test="cTypename != null">
+                c_typename,
+            </if>
+            <if test="cYearname != null">
+                c_yearname,
+            </if>
+            <if test="cNonglicn != null">
+                c_nonglicn,
+            </if>
+            <if test="cNongli != null">
+                c_nongli,
+            </if>
+            <if test="cAnimalsYear != null">
+                c_animals_year,
+            </if>
+            <if test="cThrottle != null">
+                c_throttle,
+            </if>
+            <if test="cWeekcn != null">
+                c_weekcn,
+            </if>
+            <if test="cWeek1 != null">
+                c_week1,
+            </if>
+            <if test="cWeek2 != null">
+                c_week2,
+            </if>
+            <if test="cWeek3 != null">
+                c_week3,
+            </if>
+            <if test="cDaynum != null">
+                c_daynum,
+            </if>
+            <if test="cWeeknum != null">
+                c_weeknum,
+            </if>
+            <if test="cSuit != null">
+                c_suit,
+            </if>
+            <if test="cAvoid != null">
+                c_avoid,
+            </if>
+            <if test="cDesc != null">
+                c_desc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dDate != null">
+                #{dDate,jdbcType=VARCHAR},
+            </if>
+            <if test="cType != null">
+                #{cType,jdbcType=VARCHAR},
+            </if>
+            <if test="cTypename != null">
+                #{cTypename,jdbcType=VARCHAR},
+            </if>
+            <if test="cYearname != null">
+                #{cYearname,jdbcType=VARCHAR},
+            </if>
+            <if test="cNonglicn != null">
+                #{cNonglicn,jdbcType=VARCHAR},
+            </if>
+            <if test="cNongli != null">
+                #{cNongli,jdbcType=VARCHAR},
+            </if>
+            <if test="cAnimalsYear != null">
+                #{cAnimalsYear,jdbcType=VARCHAR},
+            </if>
+            <if test="cThrottle != null">
+                #{cThrottle,jdbcType=VARCHAR},
+            </if>
+            <if test="cWeekcn != null">
+                #{cWeekcn,jdbcType=VARCHAR},
+            </if>
+            <if test="cWeek1 != null">
+                #{cWeek1,jdbcType=VARCHAR},
+            </if>
+            <if test="cWeek2 != null">
+                #{cWeek2,jdbcType=VARCHAR},
+            </if>
+            <if test="cWeek3 != null">
+                #{cWeek3,jdbcType=VARCHAR},
+            </if>
+            <if test="cDaynum != null">
+                #{cDaynum,jdbcType=VARCHAR},
+            </if>
+            <if test="cWeeknum != null">
+                #{cWeeknum,jdbcType=VARCHAR},
+            </if>
+            <if test="cSuit != null">
+                #{cSuit,jdbcType=VARCHAR},
+            </if>
+            <if test="cAvoid != null">
+                #{cAvoid,jdbcType=VARCHAR},
+            </if>
+            <if test="cDesc != null">
+                #{cDesc,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.adtec.daily.bean.system.TCalendarExample" resultType="java.lang.Long">
+        select count(*) from t_calendar
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_calendar
+        <set>
+            <if test="record.dDate != null">
+                d_date = #{record.dDate,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cType != null">
+                c_type = #{record.cType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cTypename != null">
+                c_typename = #{record.cTypename,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cYearname != null">
+                c_yearname = #{record.cYearname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cNonglicn != null">
+                c_nonglicn = #{record.cNonglicn,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cNongli != null">
+                c_nongli = #{record.cNongli,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cAnimalsYear != null">
+                c_animals_year = #{record.cAnimalsYear,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cThrottle != null">
+                c_throttle = #{record.cThrottle,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cWeekcn != null">
+                c_weekcn = #{record.cWeekcn,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cWeek1 != null">
+                c_week1 = #{record.cWeek1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cWeek2 != null">
+                c_week2 = #{record.cWeek2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cWeek3 != null">
+                c_week3 = #{record.cWeek3,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cDaynum != null">
+                c_daynum = #{record.cDaynum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cWeeknum != null">
+                c_weeknum = #{record.cWeeknum,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cSuit != null">
+                c_suit = #{record.cSuit,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cAvoid != null">
+                c_avoid = #{record.cAvoid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cDesc != null">
+                c_desc = #{record.cDesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_calendar
+        set d_date = #{record.dDate,jdbcType=VARCHAR},
+        c_type = #{record.cType,jdbcType=VARCHAR},
+        c_typename = #{record.cTypename,jdbcType=VARCHAR},
+        c_yearname = #{record.cYearname,jdbcType=VARCHAR},
+        c_nonglicn = #{record.cNonglicn,jdbcType=VARCHAR},
+        c_nongli = #{record.cNongli,jdbcType=VARCHAR},
+        c_animals_year = #{record.cAnimalsYear,jdbcType=VARCHAR},
+        c_throttle = #{record.cThrottle,jdbcType=VARCHAR},
+        c_weekcn = #{record.cWeekcn,jdbcType=VARCHAR},
+        c_week1 = #{record.cWeek1,jdbcType=VARCHAR},
+        c_week2 = #{record.cWeek2,jdbcType=VARCHAR},
+        c_week3 = #{record.cWeek3,jdbcType=VARCHAR},
+        c_daynum = #{record.cDaynum,jdbcType=VARCHAR},
+        c_weeknum = #{record.cWeeknum,jdbcType=VARCHAR},
+        c_suit = #{record.cSuit,jdbcType=VARCHAR},
+        c_avoid = #{record.cAvoid,jdbcType=VARCHAR},
+        c_desc = #{record.cDesc,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.adtec.daily.bean.system.TCalendar">
+        update t_calendar
+        <set>
+            <if test="cType != null">
+                c_type = #{cType,jdbcType=VARCHAR},
+            </if>
+            <if test="cTypename != null">
+                c_typename = #{cTypename,jdbcType=VARCHAR},
+            </if>
+            <if test="cYearname != null">
+                c_yearname = #{cYearname,jdbcType=VARCHAR},
+            </if>
+            <if test="cNonglicn != null">
+                c_nonglicn = #{cNonglicn,jdbcType=VARCHAR},
+            </if>
+            <if test="cNongli != null">
+                c_nongli = #{cNongli,jdbcType=VARCHAR},
+            </if>
+            <if test="cAnimalsYear != null">
+                c_animals_year = #{cAnimalsYear,jdbcType=VARCHAR},
+            </if>
+            <if test="cThrottle != null">
+                c_throttle = #{cThrottle,jdbcType=VARCHAR},
+            </if>
+            <if test="cWeekcn != null">
+                c_weekcn = #{cWeekcn,jdbcType=VARCHAR},
+            </if>
+            <if test="cWeek1 != null">
+                c_week1 = #{cWeek1,jdbcType=VARCHAR},
+            </if>
+            <if test="cWeek2 != null">
+                c_week2 = #{cWeek2,jdbcType=VARCHAR},
+            </if>
+            <if test="cWeek3 != null">
+                c_week3 = #{cWeek3,jdbcType=VARCHAR},
+            </if>
+            <if test="cDaynum != null">
+                c_daynum = #{cDaynum,jdbcType=VARCHAR},
+            </if>
+            <if test="cWeeknum != null">
+                c_weeknum = #{cWeeknum,jdbcType=VARCHAR},
+            </if>
+            <if test="cSuit != null">
+                c_suit = #{cSuit,jdbcType=VARCHAR},
+            </if>
+            <if test="cAvoid != null">
+                c_avoid = #{cAvoid,jdbcType=VARCHAR},
+            </if>
+            <if test="cDesc != null">
+                c_desc = #{cDesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where d_date = #{dDate,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

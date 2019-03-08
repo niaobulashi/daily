@@ -1,0 +1,30 @@
+body{margin: 0;padding: 0;color:#888; font-family:"微软雅黑";background:#f3f3f3; font-size:12px;}
+ul,ol,li {list-style:none;margin: 0;padding: 0;}
+input{ border:none;outline:none;}
+a{ text-decoration:none;}
+
+p {margin:0; padding:0}
+.top1{ width:100%; height:80px; background:#FFF;}
+.top1-1{ width:1200px;; height:80px; background:#fff; margin:0 auto;}
+.logo1{ width:520px; height:80px; background:url(/static/image/logo1.png) center no-repeat; float:left;}
+.top2{ width:100%; height:440px; background:url(/static/image/beijing1.webp) center no-repeat;}
+.top2-1{ width:1200px;; height:100px;margin:0 auto;}
+.top2-2{ width:380px; height:415px; background: url(/static/image/kuang1.png) center no-repeat; margin:0 auto;}
+.top2-3{ width:100%; height:10px;}
+.top2-4{ width:100%; height:125px;}
+.top2-5{ width:100%; height:20px;}
+.top2-6{ width:100%; height:30px;margin-top: 5px;margin-left: 35%; color: red;}
+.top2-7{ width:100%; height:12px;}
+.top2-8{ width:300px; height:20px;margin:0 auto;}
+.layui-input{ width:300px; height:40px;border:1px solid #dbdbdb;font-size:12px; text-indent:17px; color:#666;}
+.layui-input2{ width:300px; height:40px; margin:0 auto;}
+.anniu{ width:300px; height:42px; margin:0 auto;}
+.anniu1{width:300px; height:42px; border:none; outline:none; background:url(/static/image/anniu1.png) center no-repeat;}
+.login{width: 300px; margin: 0 auto}
+.loginbuttonwidth{width:300px}
+.zi1{font-family:"微软雅黑";color:#333; font-size:14px;}
+.zi1:hover{ color:#195489;}
+.top3{ width:100%; height:60px; background:#FFF;}
+.top3-1{ width:1200px;; height:60px; background:#fff;margin:0 auto;}
+.top3-2{ width:385px; height:40px; line-height:60px; margin-left:815px;color:#8b8a8a; font-size:14px; text-align:center;}
+.top3-3{ width:385px; height:20px; line-height:30px;margin-left:815px;color:#8b8a8a; font-size:12px; text-align:center;}

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adtec.daily.dao.user.UserFeedBackMapper">
+    <resultMap id="BaseResultMap" type="com.adtec.daily.bean.user.UserFeedBack">
+        <id column="fd_id" jdbcType="INTEGER" property="fdId" />
+        <result column="fb_type" jdbcType="VARCHAR" property="fbType" />
+        <result column="fb_info" jdbcType="VARCHAR" property="fbInfo" />
+        <result column="fb_user" jdbcType="VARCHAR" property="fbUser" />
+        <result column="fb_email" jdbcType="VARCHAR" property="fbEmail" />
+        <result column="session_id" jdbcType="VARCHAR" property="sessionId" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="result_flag" jdbcType="VARCHAR" property="resultFlag" />
+        <result column="remark1" jdbcType="VARCHAR" property="remark1" />
+        <result column="remark2" jdbcType="VARCHAR" property="remark2" />
+        <result column="remark3" jdbcType="VARCHAR" property="remark3" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    fd_id, fb_type, fb_info, fb_user, fb_email, session_id, create_date, result_flag,
+    remark1, remark2, remark3
+    </sql>
+    <select id="selectByExample" parameterType="com.adtec.daily.bean.user.UserFeedBackExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from t_user_feedback
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <delete id="deleteByExample" parameterType="com.adtec.daily.bean.user.UserFeedBackExample">
+        delete from t_user_feedback
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insertSelective" parameterType="com.adtec.daily.bean.user.UserFeedBack">
+        insert into t_user_feedback
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fdId != null">
+                fd_id,
+            </if>
+            <if test="fbType != null">
+                fb_type,
+            </if>
+            <if test="fbInfo != null">
+                fb_info,
+            </if>
+            <if test="fbUser != null">
+                fb_user,
+            </if>
+            <if test="fbEmail != null">
+                fb_email,
+            </if>
+            <if test="sessionId != null">
+                session_id,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="resultFlag != null">
+                result_flag,
+            </if>
+            <if test="remark1 != null">
+                remark1,
+            </if>
+            <if test="remark2 != null">
+                remark2,
+            </if>
+            <if test="remark3 != null">
+                remark3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fdId != null">
+                #{fdId,jdbcType=INTEGER},
+            </if>
+            <if test="fbType != null">
+                #{fbType,jdbcType=VARCHAR},
+            </if>
+            <if test="fbInfo != null">
+                #{fbInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="fbUser != null">
+                #{fbUser,jdbcType=VARCHAR},
+            </if>
+            <if test="fbEmail != null">
+                #{fbEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="sessionId != null">
+                #{sessionId,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="resultFlag != null">
+                #{resultFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                #{remark3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.adtec.daily.bean.user.UserFeedBackExample" resultType="java.lang.Long">
+        select count(*) from t_user_feedback
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_user_feedback
+        <set>
+            <if test="record.fdId != null">
+                fd_id = #{record.fdId,jdbcType=INTEGER},
+            </if>
+            <if test="record.fbType != null">
+                fb_type = #{record.fbType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.fbInfo != null">
+                fb_info = #{record.fbInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="record.fbUser != null">
+                fb_user = #{record.fbUser,jdbcType=VARCHAR},
+            </if>
+            <if test="record.fbEmail != null">
+                fb_email = #{record.fbEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sessionId != null">
+                session_id = #{record.sessionId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createDate != null">
+                create_date = #{record.createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.resultFlag != null">
+                result_flag = #{record.resultFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark1 != null">
+                remark1 = #{record.remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark2 != null">
+                remark2 = #{record.remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark3 != null">
+                remark3 = #{record.remark3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_user_feedback
+        set fd_id = #{record.fdId,jdbcType=INTEGER},
+        fb_type = #{record.fbType,jdbcType=VARCHAR},
+        fb_info = #{record.fbInfo,jdbcType=VARCHAR},
+        fb_user = #{record.fbUser,jdbcType=VARCHAR},
+        fb_email = #{record.fbEmail,jdbcType=VARCHAR},
+        session_id = #{record.sessionId,jdbcType=VARCHAR},
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+        result_flag = #{record.resultFlag,jdbcType=VARCHAR},
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+        remark3 = #{record.remark3,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.adtec.daily.bean.user.UserFeedBack">
+        update t_user_feedback
+        <set>
+            <if test="fbType != null">
+                fb_type = #{fbType,jdbcType=VARCHAR},
+            </if>
+            <if test="fbInfo != null">
+                fb_info = #{fbInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="fbUser != null">
+                fb_user = #{fbUser,jdbcType=VARCHAR},
+            </if>
+            <if test="fbEmail != null">
+                fb_email = #{fbEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="sessionId != null">
+                session_id = #{sessionId,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="resultFlag != null">
+                result_flag = #{resultFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                remark1 = #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                remark2 = #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                remark3 = #{remark3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where fd_id = #{fdId,jdbcType=INTEGER}
+    </update>
+
+    <!-- 查询意见反馈 -->
+    <select id="selectBySessionIdAndfbIdMax" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List" />
+        from t_user_feedback
+        WHERE 1 = 1
+        AND fb_user = #{fbUser,jdbcType=VARCHAR}
+        AND fd_id = (
+        SELECT MAX(fd_id) from t_user_feedback where 1 = 1
+        AND fb_user = #{fbUser,jdbcType=VARCHAR}
+        )
+    </select>
+
+    <select id="selectFeedBackList" resultMap="BaseResultMap">
+        SELECT tuf.`fd_id`, tuf.`fb_type`, tuf.`fb_info`, tu.`user_name` fb_user, tuf.`fb_email`, tuf.`create_date`, tuf.result_flag
+        FROM t_user_feedback tuf INNER JOIN t_user tu ON tuf.`fb_user` = tu.`user_id`
+        WHERE 1 = 1
+        <if test="fbType != null and fbType != ''">
+            AND tuf.fb_type = #{fbType,jdbcType=VARCHAR}
+        </if>
+        <if test="resultFlag != '' and resultFlag != null">
+            AND tuf.result_flag = #{resultFlag,jdbcType=VARCHAR}
+        </if>
+        <if test="feedbackDateStart != '' and feedbackDateStart != null">
+            AND tuf.create_date >= #{feedbackDateStart,jdbcType=DATE}
+        </if>
+        <if test="feedbackDateEnd != '' and feedbackDateEnd != null">
+            AND tuf.create_date &lt;= #{feedbackDateEnd,jdbcType=DATE}
+        </if>
+        order by tuf.create_date desc
+    </select>
+
+    <update id="updateResultFlagById">
+        update t_user_feedback set result_flag=#{resultFlag,jdbcType=VARCHAR} where fd_id=#{fdId,jdbcType=INTEGER}
+    </update>
+</mapper>

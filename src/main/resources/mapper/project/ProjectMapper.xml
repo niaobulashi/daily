@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.adtec.daily.dao.project.ProjectMapper">
+    <resultMap id="BaseResultMap" type="com.adtec.daily.bean.project.Project">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="project_code" property="projectCode" jdbcType="VARCHAR"/>
+        <result column="project_name" property="projectName" jdbcType="VARCHAR"/>
+        <result column="project_user_id" property="projectUserId" jdbcType="VARCHAR"/>
+        <result column="service_object_id" property="serviceObjectId" jdbcType="VARCHAR"/>
+        <result column="daily_module_id" property="dailyModuleId" jdbcType="VARCHAR"/>
+        <result column="work_start_time" property="workStartTime" jdbcType="TIME"/>
+        <result column="morning_end_time" jdbcType="TIME" property="morningEndTime" />
+        <result column="after_start_time" jdbcType="TIME" property="afterStartTime" />
+        <result column="work_end_time" property="workEndTime" jdbcType="TIME"/>
+        <result column="overwork_start_time" property="overworkStartTime" jdbcType="TIME"/>
+        <result column="overtime_pay" jdbcType="DECIMAL" property="overtimePay" />
+        <result column="holiday_overtime_coefficient" jdbcType="DECIMAL" property="holidayOvertimeCoefficient" />
+        <result column="weekend_overtime_coefficient" jdbcType="DECIMAL" property="weekendOvertimeCoefficient" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user_id" property="createUserId" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR"/>
+        <result column="remark1" property="remark1" jdbcType="VARCHAR"/>
+        <result column="remark2" property="remark2" jdbcType="VARCHAR"/>
+        <result column="remark3" property="remark3" jdbcType="VARCHAR"/>
+
+        <!--关联查询的属性-->
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="daily_id" property="dailyId" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, project_code, project_name, project_user_id, service_object_id, daily_module_id,
+        work_start_time, morning_end_time, after_start_time, work_end_time, overwork_start_time,
+        overtime_pay, holiday_overtime_coefficient, create_time, create_user_id, update_time,
+        update_user_id, remark1, remark2, remark3, weekend_overtime_coefficient
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.adtec.daily.bean.project.ProjectExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from t_project
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_project
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from t_project
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.adtec.daily.bean.project.ProjectExample">
+        delete from t_project
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.adtec.daily.bean.project.Project">
+        insert into t_project (id, project_code, project_name,
+        project_user_id, service_object_id, daily_module_id,
+        work_start_time, work_end_time, overwork_start_time,
+        overtime_pay, holiday_overtime_coefficient,
+        create_time, create_user_id, update_time,
+        update_user_id, remark1, remark2,morning_end_time,after_start_time, weekend_overtime_coefficient
+        remark3)
+        values (#{id,jdbcType=INTEGER}, #{projectCode,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR},
+        #{projectUserId,jdbcType=VARCHAR}, #{serviceObjectId,jdbcType=VARCHAR}, #{dailyModuleId,jdbcType=VARCHAR},
+        #{workStartTime,jdbcType=TIME}, #{workEndTime,jdbcType=TIME}, #{overworkStartTime,jdbcType=TIME},
+        #{overtimePay,jdbcType=DECIMAL}, #{holidayOvertimeCoefficient,jdbcType=DECIMAL},
+        #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+        #{updateUserId,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR},
+        #{remark3,jdbcType=VARCHAR}, #{morningEndTime,jdbcType=TIME}, #{afterStartTime,jdbcType=TIME}, #{weekendOvertimeCoefficient,jdbcType=TIME})
+    </insert>
+    <insert id="insertSelective" parameterType="com.adtec.daily.bean.project.Project">
+        insert into t_project
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="projectCode != null">
+                project_code,
+            </if>
+            <if test="projectName != null">
+                project_name,
+            </if>
+            <if test="projectUserId != null">
+                project_user_id,
+            </if>
+            <if test="serviceObjectId != null">
+                service_object_id,
+            </if>
+            <if test="dailyModuleId != null">
+                daily_module_id,
+            </if>
+            <if test="workStartTime != null">
+                work_start_time,
+            </if>
+            <if test="morningEndTime != null">
+                morning_end_time,
+            </if>
+            <if test="afterStartTime != null">
+                after_start_time,
+            </if>
+            <if test="workEndTime != null">
+                work_end_time,
+            </if>
+            <if test="overworkStartTime != null">
+                overwork_start_time,
+            </if>
+            <if test="overtimePay != null">
+                overtime_pay,
+            </if>
+            <if test="holidayOvertimeCoefficient != null">
+                holiday_overtime_coefficient,
+            </if>
+            <if test="weekendOvertimeCoefficient != null">
+                weekend_overtime_coefficient,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUserId != null">
+                update_user_id,
+            </if>
+            <if test="remark1 != null">
+                remark1,
+            </if>
+            <if test="remark2 != null">
+                remark2,
+            </if>
+            <if test="remark3 != null">
+                remark3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="projectCode != null">
+                #{projectCode,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null">
+                #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectUserId != null">
+                #{projectUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceObjectId != null">
+                #{serviceObjectId,jdbcType=VARCHAR},
+            </if>
+            <if test="dailyModuleId != null">
+                #{dailyModuleId,jdbcType=VARCHAR},
+            </if>
+            <if test="workStartTime != null">
+                #{workStartTime,jdbcType=TIME},
+            </if>
+            <if test="morningEndTime != null">
+                #{morningEndTime,jdbcType=TIME},
+            </if>
+            <if test="afterStartTime != null">
+                #{afterStartTime,jdbcType=TIME},
+            </if>
+            <if test="workEndTime != null">
+                #{workEndTime,jdbcType=TIME},
+            </if>
+            <if test="overworkStartTime != null">
+                #{overworkStartTime,jdbcType=TIME},
+            </if>
+            <if test="overtimePay != null">
+                #{overtimePay,jdbcType=DECIMAL},
+            </if>
+            <if test="holidayOvertimeCoefficient != null">
+                #{holidayOvertimeCoefficient,jdbcType=DECIMAL},
+            </if>
+            <if test="weekendOvertimeCoefficient != null">
+                #{weekendOvertimeCoefficient,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                #{remark3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.adtec.daily.bean.project.ProjectExample"
+            resultType="java.lang.Integer">
+        select count(*) from t_project
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_project
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.projectCode != null">
+                project_code = #{record.projectCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.projectName != null">
+                project_name = #{record.projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.projectUserId != null">
+                project_user_id = #{record.projectUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.serviceObjectId != null">
+                service_object_id = #{record.serviceObjectId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dailyModuleId != null">
+                daily_module_id = #{record.dailyModuleId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.workStartTime != null">
+                work_start_time = #{record.workStartTime,jdbcType=TIME},
+            </if>
+            <if test="record.morningEndTime != null">
+                morning_end_time = #{record.morningEndTime,jdbcType=TIME},
+            </if>
+            <if test="record.afterStartTime != null">
+                after_start_time = #{record.afterStartTime,jdbcType=TIME},
+            </if>
+            <if test="record.workEndTime != null">
+                work_end_time = #{record.workEndTime,jdbcType=TIME},
+            </if>
+            <if test="record.overworkStartTime != null">
+                overwork_start_time = #{record.overworkStartTime,jdbcType=TIME},
+            </if>
+            <if test="record.overtimePay != null">
+                overtime_pay = #{record.overtimePay,jdbcType=DECIMAL},
+            </if>
+            <if test="record.holidayOvertimeCoefficient != null">
+                holiday_overtime_coefficient = #{record.holidayOvertimeCoefficient,jdbcType=DECIMAL},
+            </if>
+            <if test="record.weekendOvertimeCoefficient != null">
+                weekend_overtime_coefficient = #{record.weekendOvertimeCoefficient,jdbcType=DECIMAL},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.createUserId != null">
+                create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.updateTime != null">
+                update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateUserId != null">
+                update_user_id = #{record.updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark1 != null">
+                remark1 = #{record.remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark2 != null">
+                remark2 = #{record.remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="record.remark3 != null">
+                remark3 = #{record.remark3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_project
+        set id = #{record.id,jdbcType=INTEGER},
+        project_code = #{record.projectCode,jdbcType=VARCHAR},
+        project_name = #{record.projectName,jdbcType=VARCHAR},
+        project_user_id = #{record.projectUserId,jdbcType=VARCHAR},
+        service_object_id = #{record.serviceObjectId,jdbcType=VARCHAR},
+        daily_module_id = #{record.dailyModuleId,jdbcType=VARCHAR},
+        work_start_time = #{record.workStartTime,jdbcType=TIME},
+        morning_end_time = #{record.morningEndTime,jdbcType=TIME},
+        after_start_time = #{record.afterStartTime,jdbcType=TIME},
+        work_end_time = #{record.workEndTime,jdbcType=TIME},
+        overwork_start_time = #{record.overworkStartTime,jdbcType=TIME},
+        overtime_pay = #{record.overtimePay,jdbcType=DECIMAL},
+        holiday_overtime_coefficient = #{record.holidayOvertimeCoefficient,jdbcType=DECIMAL},
+        weekend_overtime_coefficient = #{record.weekendOvertimeCoefficient,jdbcType=DECIMAL},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        update_user_id = #{record.updateUserId,jdbcType=VARCHAR},
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+        remark3 = #{record.remark3,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.adtec.daily.bean.project.Project">
+        update t_project
+        <set>
+            <if test="projectCode != null">
+                project_code = #{projectCode,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null">
+                project_name = #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectUserId != null">
+                project_user_id = #{projectUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceObjectId != null">
+                service_object_id = #{serviceObjectId,jdbcType=VARCHAR},
+            </if>
+            <if test="dailyModuleId != null">
+                daily_module_id = #{dailyModuleId,jdbcType=VARCHAR},
+            </if>
+            <if test="workStartTime != null">
+                work_start_time = #{workStartTime,jdbcType=TIME},
+            </if>
+            <if test="morningEndTime != null">
+                morning_end_time = #{morningEndTime,jdbcType=TIME},
+            </if>
+            <if test="afterStartTime != null">
+                after_start_time = #{afterStartTime,jdbcType=TIME},
+            </if>
+            <if test="workEndTime != null">
+                work_end_time = #{workEndTime,jdbcType=TIME},
+            </if>
+            <if test="overworkStartTime != null">
+                overwork_start_time = #{overworkStartTime,jdbcType=TIME},
+            </if>
+            <if test="overtimePay != null">
+                overtime_pay = #{overtimePay,jdbcType=DECIMAL},
+            </if>
+            <if test="holidayOvertimeCoefficient != null">
+                holiday_overtime_coefficient = #{holidayOvertimeCoefficient,jdbcType=DECIMAL},
+            </if>
+            <if test="weekendOvertimeCoefficient != null">
+                weekend_overtime_coefficient = #{weekendOvertimeCoefficient,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUserId != null">
+                update_user_id = #{updateUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="remark1 != null">
+                remark1 = #{remark1,jdbcType=VARCHAR},
+            </if>
+            <if test="remark2 != null">
+                remark2 = #{remark2,jdbcType=VARCHAR},
+            </if>
+            <if test="remark3 != null">
+                remark3 = #{remark3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.adtec.daily.bean.project.Project">
+        update t_project
+        set project_code = #{projectCode,jdbcType=VARCHAR},
+        project_name = #{projectName,jdbcType=VARCHAR},
+        project_user_id = #{projectUserId,jdbcType=VARCHAR},
+        service_object_id = #{serviceObjectId,jdbcType=VARCHAR},
+        daily_module_id = #{dailyModuleId,jdbcType=VARCHAR},
+        work_start_time = #{workStartTime,jdbcType=TIME},
+        work_end_time = #{workEndTime,jdbcType=TIME},
+        overwork_start_time = #{overworkStartTime,jdbcType=TIME},
+        overtime_pay = #{overtimePay,jdbcType=DECIMAL},
+        holiday_overtime_coefficient = #{holidayOvertimeCoefficient,jdbcType=DECIMAL},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+        remark1 = #{remark1,jdbcType=VARCHAR},
+        remark2 = #{remark2,jdbcType=VARCHAR},
+        remark3 = #{remark3,jdbcType=VARCHAR},
+        morning_end_time = #{morningEndTime,jdbcType=TIME},
+        after_start_time = #{afterStartTime,jdbcType=TIME},
+        weekend_overtime_coefficient = #{weekendOvertimeCoefficient,jdbcType=TIME}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!--关联查询-->
+    <select id="selectAllProject" resultMap="BaseResultMap">
+        SELECT t1.id, t1.project_code, t1.project_name,
+        t1.project_user_id, t1.service_object_id, t1.daily_module_id,
+        t1.work_start_time, t1.work_end_time, t1.overwork_start_time,
+        t1.overtime_pay, t1.holiday_overtime_coefficient,
+        t1.create_time, t1.create_user_id, t1.update_time,
+        t1.update_user_id, t1.remark1, t1.remark2,
+        t1.remark3,t2.user_name, t1.morning_end_time, t1.after_start_time, t1.weekend_overtime_coefficient
+        FROM t_project t1
+        LEFT JOIN t_user t2 on t2.user_id = t1.project_user_id
+        WHERE 1=1
+        <![CDATA[
+              order by t1.create_time asc
+
+
+        ]]>
+    </select>
+
+    <select id="selectInfoByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select t1.id, t1.project_code, t1.project_name,
+        t1.project_user_id, t1.service_object_id, t1.daily_module_id,
+        t1.work_start_time, t1.work_end_time, t1.overwork_start_time,
+        t1.overtime_pay, t1.holiday_overtime_coefficient,
+        t1.create_time, t1.create_user_id, t1.update_time,
+        t1.update_user_id, t1.remark1, t1.remark2,
+        t1.remark3,t2.user_name, t1.morning_end_time, t1.after_start_time, t1.weekend_overtime_coefficient, t2.email
+        FROM t_project t1
+        LEFT JOIN t_user t2 on t2.user_id = t1.project_user_id
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select t1.id, t1.project_code, t1.project_name,
+        t1.project_user_id, t1.service_object_id, t1.daily_module_id,
+        t1.work_start_time, t1.work_end_time, t1.overwork_start_time,
+        t1.overtime_pay, t1.holiday_overtime_coefficient,
+        t1.create_time, t1.create_user_id, t1.update_time,
+        t1.update_user_id, t1.remark1, t1.remark2, t1.morning_end_time, t1.after_start_time, t1.weekend_overtime_coefficient, t1.remark3,
+        t3.user_name
+        FROM t_user_project t2
+        LEFT JOIN t_project t1 on t1.id = t2.project_id
+        LEFT JOIN t_user t3 on t3.user_id = t1.project_user_id
+        WHERE t2.user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <!--根据员工查看项目信息-->
+    <select id="selectProjectByUser" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT t1.id, t1.project_code, t1.project_name,
+        t1.project_user_id, t1.service_object_id, t1.daily_module_id,
+        t1.work_start_time, t1.work_end_time, t1.overwork_start_time,
+        t1.overtime_pay, t1.holiday_overtime_coefficient,
+        t1.create_time, t1.create_user_id, t1.update_time,
+        t1.update_user_id, t1.remark1, t1.remark2,
+        t1.remark3,t2.user_name, t1.morning_end_time, t1.after_start_time, t1.weekend_overtime_coefficient,
+        t3.user_name currentUserName,t3.email currentUserEmail
+        FROM t_project t1
+        LEFT JOIN t_user t2 on t2.user_id = t1.project_user_id
+        LEFT JOIN t_user_project tup ON tup.project_id = t1.id
+        LEFT  JOIN  t_user t3 on t3.user_id = tup.user_id
+        WHERE 1=1
+        AND tup.user_id = #{userId,jdbcType=VARCHAR}
+        <![CDATA[
+              order by t1.create_time asc
+
+
+        ]]>
+    </select>
+
+    <!--根据添加的日报信息获取项目下班时间-->
+    <select id="selectProjectByDailyId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT tp.id, tp.work_start_time, tp.work_end_time, tp.overwork_start_time, tp.overtime_pay, tp.holiday_overtime_coefficient, td.user_id, td.daily_date, tp.morning_end_time, tp.after_start_time
+        FROM t_project tp
+        LEFT JOIN t_daily td on tp.id = td.project_id
+        WHERE 1=1
+        AND td.daily_id = #{dailyId,jdbcType=VARCHAR}
+    </select>
+</mapper>

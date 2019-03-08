@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.adtec.daily.dao.daily.OverWorkMapper" >
+  <resultMap id="BaseResultMap" type="com.adtec.daily.bean.daily.OverWork" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="work_date" property="workDate" jdbcType="DATE" />
+    <result column="over_work" property="overWork" jdbcType="DECIMAL" />
+    <result column="holiday_flag" property="holidayFlag"  jdbcType="VARCHAR" />
+    <result column="approval_status" jdbcType="VARCHAR" property="approvalStatus" />
+    <result column="approval_opinion" jdbcType="VARCHAR" property="approvalOpinion" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user_id" property="createUserId" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_user_id" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, work_date, holiday_flag, over_work, approval_status, approval_opinion,
+    create_time, create_user_id, update_time, update_user_id, remark1, remark2, remark3
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.adtec.daily.bean.daily.OverWorkExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_over_work
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_over_work
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_over_work
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.adtec.daily.bean.daily.OverWorkExample" >
+    delete from t_over_work
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.adtec.daily.bean.daily.OverWork" >
+    insert into t_over_work (id, user_id, work_date, 
+      holiday_flag, over_work, approval_status,approval_opinion, create_time, create_user_id,
+      update_time, update_user_id, remark1, 
+      remark2, remark3)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{workDate,jdbcType=DATE}, #{holidayFlag,jdbcType=VARCHAR},
+      #{overWork,jdbcType=DECIMAL}, #{approvalStatus,jdbcType=VARCHAR}, #{approvalOpinion,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=VARCHAR},
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.adtec.daily.bean.daily.OverWork" >
+    insert into t_over_work
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="workDate != null" >
+        work_date,
+      </if>
+      <if test="holidayFlag != null" >
+        holiday_flag,
+      </if>
+      <if test="overWork != null" >
+        over_work,
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status,
+      </if>
+      <if test="approvalOpinion != null" >
+        approval_opinion,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null" >
+        #{workDate,jdbcType=DATE},
+      </if>
+      <if test="holidayFlag != null" >
+        #{holidayFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="overWork != null" >
+        #{overWork,jdbcType=DECIMAL},
+      </if>
+      <if test="approvalStatus != null" >
+        #{approvalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalOpinion != null" >
+        #{approvalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.adtec.daily.bean.daily.OverWorkExample" resultType="java.lang.Integer" >
+    select count(*) from t_over_work
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_over_work
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workDate != null" >
+        work_date = #{record.workDate,jdbcType=DATE},
+      </if>
+      <if test="record.overWork != null" >
+        over_work = #{record.overWork,jdbcType=DECIMAL},
+      </if>
+      <if test="record.approvalStatus != null" >
+        approval_status = #{record.approvalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approvalOpinion != null" >
+        approval_opinion = #{record.approvalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holidayFlag != null">
+        holiday_flag = #{record.holidayFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUserId != null" >
+        create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUserId != null" >
+        update_user_id = #{record.updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_over_work
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      work_date = #{record.workDate,jdbcType=DATE},
+      holiday_flag = #{record.holidayFlag,jdbcType=VARCHAR},
+      over_work = #{record.overWork,jdbcType=DECIMAL},
+      approval_status = #{record.approvalStatus,jdbcType=VARCHAR},
+      approval_opinion = #{record.approvalOpinion,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{record.createUserId,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_user_id = #{record.updateUserId,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.adtec.daily.bean.daily.OverWork" >
+    update t_over_work
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="workDate != null" >
+        work_date = #{workDate,jdbcType=DATE},
+      </if>
+      <if test="overWork != null" >
+        over_work = #{overWork,jdbcType=DECIMAL},
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status = #{approvalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalOpinion != null" >
+        approval_opinion = #{approvalOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="holidayFlag != null">
+        holiday_flag = #{holidayFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.adtec.daily.bean.daily.OverWork" >
+    update t_over_work
+    set user_id = #{userId,jdbcType=VARCHAR},
+      work_date = #{workDate,jdbcType=DATE},
+      holiday_flag = #{holidayFlag,jdbcType=VARCHAR},
+      over_work = #{overWork,jdbcType=DECIMAL},
+      approval_status = #{approvalStatus,jdbcType=VARCHAR},
+      approval_opinion = #{approvalOpinion,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user_id = #{updateUserId,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--根据用户id及上班日期查询加班明细列表-->
+  <select id="selectOverWorkDetailListByUserIdAndWorkDate" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    t1.id, t1.work_date, t1.user_id, t1.over_work, t1.approval_status, t1.approval_opinion, t1.holiday_flag, t2.user_name userName, t2.identity_no identityNo,t3.project_code projectCode, t3.project_name projectName,
+    t3.overtime_pay overtimePay,t3.holiday_overtime_coefficient holidayOvertimeCoefficient,t3.weekend_overtime_coefficient weekendOvertimeCoefficient,t4.dept_name deptName
+    FROM t_over_work t1
+    LEFT JOIN t_user t2 on t2.user_id = t1.user_id
+    LEFT JOIN t_user_project t5 on t5.user_id = t2.user_id
+    LEFT JOIN t_project t3 on t3.id = t5.project_id
+    LEFT JOIN t_user_department t6 on t6.user_id = t2.user_id
+    LEFT JOIN t_department t4 on t4.dept_id = t6.dept_id
+    WHERE
+    t3.id = #{id,jdbcType=INTEGER}
+    <if test="userId != '' and userId != null">
+      AND t1.user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="approvalStatus != '' and approvalStatus != null">
+      AND t1.approval_status=#{approvalStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="startDate != '' and startDate != null">
+      AND t1.work_date>=#{startDate,jdbcType=VARCHAR}
+    </if>
+    <if test="endDate != '' and endDate != null">
+      AND t1.work_date&lt;=#{endDate,jdbcType=VARCHAR}
+    </if>
+    ORDER BY t1.approval_status ASC,t1.work_date DESC
+  </select>
+
+  <!--根据用户id及上班日期查询加班总时长-->
+  <select id="selectOverWorkByUserIdAndWorkDate" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    t1.user_id,t2.user_name userName,t2.identity_no identityNo,t4.dept_name deptName,
+    t3.project_code projectCode, t3.project_name projectName, sum(t1.over_work) sumOverWork
+    FROM t_over_work t1
+    LEFT JOIN t_user t2 on t2.user_id = t1.user_id
+    LEFT JOIN t_user_project t5 on t5.user_id = t2.user_id
+    LEFT JOIN t_project t3 on t3.id = t5.project_id
+    LEFT JOIN t_user_department t6 on t6.user_id = t2.user_id
+    LEFT JOIN t_department t4 on t4.dept_id = t6.dept_id
+    WHERE
+    t1.approval_status='1'
+    AND t1.user_id = #{userId,jdbcType=VARCHAR}
+    <if test="startDate != '' and startDate != null">
+      AND t1.work_date>=#{startDate,jdbcType=VARCHAR}
+    </if>
+    <if test="endDate != '' and endDate != null">
+      AND t1.work_date&lt;=#{endDate,jdbcType=VARCHAR}
+    </if>
+    ORDER BY t1.work_date DESC
+  </select>
+
+  <select id="selectInfoByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select t1.id, t1.user_id, t1.work_date, t1.holiday_flag, t1.over_work, approval_status, t1.approval_opinion,
+    t1.create_time, t1.create_user_id, t1.update_time, t1.update_user_id, t1.remark1, t1.remark2, t1.remark3, t2.user_name userName
+    FROM t_over_work t1
+    LEFT JOIN t_user t2 on t2.user_id = t1.user_id
+    where t1.id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>
