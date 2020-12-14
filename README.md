@@ -1,3 +1,5 @@
+> 该项目不再维护，请移步至![ruoyi](https://github.com/niaobulashi/ruoyi)，已经整合日报系统部分到该项目
+
 # 项目日报管理系统
 
 ---
